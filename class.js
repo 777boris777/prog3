@@ -1,4 +1,4 @@
-class LiveForm {
+module.exports = class LiveForm {
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -18,6 +18,7 @@ class LiveForm {
       [this.x + 1, this.y + 1]
     ];
   }
+  
   chooseCell(t, e) {
     this.newDirections(e);
     let found = [];
@@ -31,20 +32,5 @@ class LiveForm {
       }
     }
     return found;
-  }
-  mul() {
-    this.multiply++;
-    if (this.multiply >= 5) {
-      let emptyCells = this.chooseCell(0);
-      let newCell = random(emptyCells);
-      if (this.multiply >= 5 && newCell) {
-        let x = newCell[0];
-        let y = newCell[1];
-        let grass = new Grass(x, y);
-        grassArr.push(grass);
-        matrix[y][x] = 1;
-        this.multiply = 0;
-      }
-    }
   }
 }
