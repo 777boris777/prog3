@@ -1,8 +1,20 @@
-class Predator extends LiveForm {
+let Grass = require("./classGrass");
+let LiveForm = require("./class");
+module.exports = class Predator extends LiveForm {
   constructor(x, y) {
     super(x, y);
   }
-
+  mul() {
+    let fundCords = this.chooseCell(0);
+    let cord = random(fundCords);
+    if (cord) {
+      let x = cord[0];
+      let y = cord[1];
+      let predator = new Predator(x, y)
+      predatorArr.push(predator)
+      matrix[y][x] = 3;
+    }
+  }
   move() {
     let fundCords = this.chooseCell(0);
     let cord = random(fundCords);

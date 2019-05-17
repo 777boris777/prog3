@@ -1,6 +1,18 @@
-class GrassEater extends LiveForm {
+let LiveForm = require("./class");
+module.exports = class GrassEater extends LiveForm {
   constructor(x, y) {
     super(x, y);
+  }
+  mul() {
+    let fundCords = this.chooseCell(0);
+    let cord = random(fundCords);
+    if (cord) {
+      let x = cord[0];
+      let y = cord[1];
+      let grassEater = new GrassEater(x, y, this.index);
+      grassEaterArr.push(grassEater);
+      matrix[y][x] = 2;
+    }
   }
   move() {
     let fundCords = this.chooseCell(0);

@@ -1,8 +1,9 @@
-class Hunter extends LiveForm {
+let LiveForm = require("./class");
+let Grass = require("./classGrass");
+module.exports = class Hunter extends LiveForm {
   constructor(x, y) {
     super(x, y);
   }
-
   move2() {
     let fundCords = this.chooseCell(0, 1);
     let cord = random(fundCords);
@@ -27,6 +28,17 @@ class Hunter extends LiveForm {
       matrix[y][x] = 4;
       this.x = x;
       this.y = y;
+    }
+  }
+  mul() {
+    let fundCords = this.chooseCell(0, 1);
+    let cord = random(fundCords);
+    if (cord) {
+      let x = cord[0];
+      let y = cord[1];
+      let hunter = new Hunter(x, y);
+      hunterArr.push(hunter);
+      matrix[y][x] = 4;
     }
   }
   die() {

@@ -1,3 +1,13 @@
+
+var express = require('express');
+var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+app.use(express.static("."));
+app.get('/', function (req, res) {
+    res.redirect('index.html');
+});
+server.listen(3000);
 grassArr = []
 grassEaterArr = []
 predatorArr = []
@@ -10,6 +20,7 @@ for (let a = 0; a < 100; a++) {
         matrix[a][b] = 0
     }
 }
+
 function newobj() {
     let n = 0;
     for (let i = 1; i < 6; i++) {
@@ -46,6 +57,7 @@ function newobj() {
 
 }
 function creatobj() {
+    io.sockets.emit('matrix', matrix)
     for (let y = 0; y < matrix.length; y++) {
         for (let x = 0; x < matrix[y].length; x++) {
             switch (matrix[y][x]) {
@@ -157,17 +169,8 @@ function game() {
     }
     for (let i in UFO_arr) {
         UFO_arr[i].eat()
-    } 
+    }
 }
+creatobj()
+newobj() 
 setInterval(game, 100)
-var express = require('express');
-var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-app.use(express.static("."));
-app.get('/', function (req, res) {
-    res.redirect('index.html');
-});
-server.listen(3000);
-
-

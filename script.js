@@ -1,14 +1,12 @@
-
+socket = io();
 let side = 10;
-
+var socket = io();
 function setup() {
     frameRate(5);
-    createCanvas(matrix[0].length * side, matrix.length * side);
+    createCanvas(100 * side, 100 * side);
     background('#acacac');
 }
-
-function draw() {
-    
+function drawMatrix(matrix) {
     for (let y = 0; y < matrix.length; y++) {
         for (let x = 0; x < matrix[y].length; x++) {
             switch (matrix[y][x]) {
@@ -36,11 +34,5 @@ function draw() {
             rect(x * side, y * side, side, side);
         }
     }
-    
-    // console.log(matrix) 
-    // console.log(grassArr)
-    // console.log(grassEaterArr)
-    // console.log(predatorArr)
-    // console.log(hunterArr)
-    // console.log(UFO_arr)
 }
+socket.on('matrix', drawMatrix)

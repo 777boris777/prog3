@@ -1,4 +1,4 @@
-class UFO {
+module.exports = class UFO {
     constructor(x, y) {
         this.x = x
         this.y = y
