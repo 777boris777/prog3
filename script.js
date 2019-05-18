@@ -2,11 +2,11 @@ socket = io();
 let side = 10;
 var socket = io();
 function setup() {
-    frameRate(5);
     createCanvas(100 * side, 100 * side);
     background('#acacac');
 }
 function drawMatrix(matrix) {
+    console.log(matrix)
     for (let y = 0; y < matrix.length; y++) {
         for (let x = 0; x < matrix[y].length; x++) {
             switch (matrix[y][x]) {
@@ -31,8 +31,11 @@ function drawMatrix(matrix) {
                 default:
                     break;
             }
+            console.log('aaa')
             rect(x * side, y * side, side, side);
         }
     }
 }
-socket.on('matrix', drawMatrix)
+
+socket.on('matrix', drawMatrix);
+console.log('ss')

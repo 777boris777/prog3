@@ -5,7 +5,7 @@ module.exports = class GrassEater extends LiveForm {
   }
   mul() {
     let fundCords = this.chooseCell(0);
-    let cord = random(fundCords);
+    var cord = fundCords[Math.floor(Math.random()*fundCords.length)];
     if (cord) {
       let x = cord[0];
       let y = cord[1];
@@ -16,7 +16,7 @@ module.exports = class GrassEater extends LiveForm {
   }
   move() {
     let fundCords = this.chooseCell(0);
-    let cord = random(fundCords);
+    var cord = fundCords[Math.floor(Math.random()*fundCords.length)];
     if (cord) {
       let x = cord[0];
       let y = cord[1];
@@ -36,7 +36,7 @@ module.exports = class GrassEater extends LiveForm {
   }
   eat() {
     let fundCords = this.chooseCell(1);
-    let cord = random(fundCords);
+    var cord = fundCords[Math.floor(Math.random()*fundCords.length)];
     if (cord) {
       let x = cord[0];
       let y = cord[1];

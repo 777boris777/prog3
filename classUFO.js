@@ -48,8 +48,8 @@ module.exports = class UFO {
         return found;
     }
     move() {
-        let x = Math.floor(random(100))
-        let y = Math.floor(random(100))
+        let x = Math.floor(Math.random()*100)
+        let y = Math.floor(Math.random()*100)
         if (matrix[y][x] < 2) {
             matrix[this.y][this.x] = 0
             matrix[y][x] = 5

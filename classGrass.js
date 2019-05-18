@@ -6,11 +6,11 @@ module.exports = class Grass extends LiveForm {
   mul() {
     this.multiply++;
     if (this.multiply >= 5) {
-      let emptyCells = this.chooseCell(0)
-      let newCell = random(emptyCells);
-      if (this.multiply >= 5 && newCell) {
-        let x = newCell[0]
-        let y = newCell[1]
+      let fundCords = this.chooseCell(0)
+      var cord = fundCords[Math.floor(Math.random()*fundCords.length)];
+      if (this.multiply >= 5 && cord) {
+        let x = cord[0]
+        let y = cord[1]
         let grass = new Grass(x, y);
         grassArr.push(grass);
         matrix[y][x] = 1;

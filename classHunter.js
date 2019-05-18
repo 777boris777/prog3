@@ -6,7 +6,7 @@ module.exports = class Hunter extends LiveForm {
   }
   move2() {
     let fundCords = this.chooseCell(0, 1);
-    let cord = random(fundCords);
+    var cord = fundCords[Math.floor(Math.random() * fundCords.length)];
     if (cord) {
       let x = cord[0];
       let y = cord[1];
@@ -18,7 +18,7 @@ module.exports = class Hunter extends LiveForm {
   }
   move1() {
     let fundCords = this.chooseCell(1, 1);
-    let cord = random(fundCords);
+    var cord = fundCords[Math.floor(Math.random() * fundCords.length)];
     if (cord) {
       let x = cord[0];
       let y = cord[1];
@@ -32,7 +32,7 @@ module.exports = class Hunter extends LiveForm {
   }
   mul() {
     let fundCords = this.chooseCell(0, 1);
-    let cord = random(fundCords);
+    var cord = fundCords[Math.floor(Math.random() * fundCords.length)];
     if (cord) {
       let x = cord[0];
       let y = cord[1];
@@ -55,7 +55,7 @@ module.exports = class Hunter extends LiveForm {
       let fundCords1 = this.chooseCell(2, k);
       let fundCords2 = this.chooseCell(3, k);
       let fundCords = fundCords1.concat(fundCords2);
-      cord = random(fundCords);
+      cord = fundCords[Math.floor(Math.random() * fundCords.length)];
       if (cord) {
         break;
       }
