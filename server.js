@@ -50,10 +50,14 @@ for (let i = 1; i < 6; i++) {
             matrix[y][x] = i;
             n++;
         }
-        
+
     }
     n = 0;
 }
+exanakner = ["Ձմեռ", "Գարուն", "Ամառ", "Աշուն"];
+
+
+exanak = "Ձմեռ";
 var Grass = require('./classGrass');
 var GrassEater = require('./classGrassEater');
 var Predator = require('./classPredator');
@@ -92,25 +96,78 @@ function start() {
     }
 }
 start()
-setInterval(game, 1)
+setInterval(game, 10)
+time = 0
+obj = {
+    m: matrix,
+    s: exanak
+}
 function game() {
+    time++
+    if (time <= 30) {
+        exanak = exanakner[1]
+    }
+    else if (time <= 60) {
+        exanak = exanakner[2]
+    }
+    else if (time <= 90) {
+        exanak = exanakner[3]
+    }
+    else if (time <= 120) {
+        exanak = exanakner[0]
+    }
+    else {
+        time = 0
+    }
+    console.log(time)
+    console.log(exanak)
     for (let i in grassArr) {
-        grassArr[i].mul();
+        if (exanak == exanakner[0]) {
+            grassArr[i].mul(30);
+        }
+        else if (exanak == exanakner[1] || exanak == exanakner[2] || exanak == exanakner[3]) {
+            grassArr[i].mul(10);
+        }
+
     }
     for (let i in grassEaterArr) {
-        grassEaterArr[i].eat();
+        if (exanak == exanakner[1] || exanak == exanakner[3]) {
+            grassEaterArr[i].eat(10);
+        }
+        else if (exanak == exanakner[2]) {
+            grassEaterArr[i].eat(15);
+        }
+        else if (exanak == exanakner[0]) {
+            grassEaterArr[i].eat(20);
+        }
     }
     for (let i in predatorArr) {
-        predatorArr[i].eat();
+        if (exanak == exanakner[1] || exanak == exanakner[3]) {
+            predatorArr[i].eat(10);
+        }
+        else if (exanak == exanakner[2]) {
+            predatorArr[i].eat(10);
+        }
+        else if (exanak == exanakner[0]) {
+            predatorArr[i].eat(15);
+        }
     }
     for (let i in hunterArr) {
-        hunterArr[i].eat()
+        if (exanak == exanakner[1] || exanak == exanakner[3]) {
+            hunterArr[i].eat(15)
+        }
+        else if (exanak == exanakner[2]) {
+            hunterArr[i].eat(10)
+        }
+        else if (exanak == exanakner[0]) {
+            hunterArr[i].eat(30)
+        }
     }
     for (let i in UFO_arr) {
         UFO_arr[i].eat()
     }
     refresh()
-    io.sockets.emit('matrix', matrix);
+    io.sockets.emit('obj', obj);
 }
 function refresh() {
     if (grassEaterArr.length <= 0) {

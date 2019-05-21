@@ -1,12 +1,14 @@
-socket = io();
 let side = 10;
-var socket = io();
+let socket = io();
+
 function setup() {
     createCanvas(100 * side, 100 * side);
     background('#acacac');
 }
-function drawMatrix(matrix) {
-    console.log(matrix)
+function drawMatrix(obj) {
+    matrix = obj.m
+    exanak = obj.s
+    console.log(exanak)
     for (let y = 0; y < matrix.length; y++) {
         for (let x = 0; x < matrix[y].length; x++) {
             switch (matrix[y][x]) {
@@ -14,7 +16,12 @@ function drawMatrix(matrix) {
                     fill("#acacac");
                     break;
                 case 1:
-                    fill("green");
+                    if (exanak == 'Ձմեռ') {
+                        fill("cornsilk");
+                    }
+                    else{
+                        fill("green");
+                    }
                     break;
                 case 2:
                     fill("yellow");
@@ -37,5 +44,5 @@ function drawMatrix(matrix) {
     }
 }
 
-socket.on('matrix', drawMatrix);
+socket.on('obj', drawMatrix);
 console.log('ss')
