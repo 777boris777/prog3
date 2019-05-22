@@ -18,9 +18,8 @@ module.exports = class LiveForm {
       [this.x + 1, this.y + 1]
     ];
   }
-  
-  chooseCell(t, e) {
-    this.newDirections(e);
+  chooseCell(t) {
+    this.newDirections();
     let found = [];
     for (let i in this.directions) {
       let x = this.directions[i][0];

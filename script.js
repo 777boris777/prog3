@@ -1,8 +1,7 @@
 let side = 10;
 let socket = io();
-
 function setup() {
-    createCanvas(100 * side, 100 * side);
+    createCanvas(50 * side, 50 * side);
     background('#acacac');
 }
 function drawMatrix(obj) {
@@ -17,7 +16,7 @@ function drawMatrix(obj) {
                     break;
                 case 1:
                     if (exanak == 'Ձմեռ') {
-                        fill("cornsilk");
+                        fill("floralwhite");
                     }
                     else{
                         fill("green");
@@ -43,6 +42,8 @@ function drawMatrix(obj) {
         }
     }
 }
-
 socket.on('obj', drawMatrix);
 console.log('ss')
+function rand() {
+    io.sockets.emit('neracru');
+}

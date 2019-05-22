@@ -13,10 +13,13 @@ grassEaterArr = [];
 predatorArr = [];
 hunterArr = [];
 UFO_arr = [];
+
+arrays = [UFO_arr, hunterArr, predatorArr, grassEaterArr]
+
 matrix = [];
-for (let a = 0; a < 100; a++) {
+for (let a = 0; a < 50; a++) {
     matrix[a] = []
-    for (let b = 0; b < 100; b++) {
+    for (let b = 0; b < 50; b++) {
         matrix[a][b] = 0
     }
 }
@@ -25,27 +28,27 @@ for (let i = 1; i < 6; i++) {
     let d;
     switch (i) {
         case 1:
-            d = 1000;
+            d = 100;
             break;
         case 2:
-            d = 200;
+            d = 70;
             break;
         case 3:
-            d = 300;
-            break;
-        case 4:
             d = 50;
             break;
+        case 4:
+            d = 30;
+            break;
         case 5:
-            d = 5;
+            d = 1;
             break;
         default:
             break;
     }
 
     while (n < d) {
-        let x = Math.floor(Math.random() * 100);
-        let y = Math.floor(Math.random() * 100);
+        let x = Math.floor(Math.random() * 50);
+        let y = Math.floor(Math.random() * 50);
         if (matrix[y][x] == 0) {
             matrix[y][x] = i;
             n++;
@@ -96,31 +99,31 @@ function start() {
     }
 }
 start()
-setInterval(game, 10)
+setInterval(game, 100)
 time = 0
 obj = {
-    m: matrix,
-    s: exanak
+    'm': matrix,
+    's': exanak
 }
 function game() {
     time++
     if (time <= 30) {
-        exanak = exanakner[1]
+        obj.s = "Գարուն";
     }
     else if (time <= 60) {
-        exanak = exanakner[2]
+        obj.s = "Ամառ";
     }
     else if (time <= 90) {
-        exanak = exanakner[3]
+        obj.s = "Աշուն";
     }
     else if (time <= 120) {
-        exanak = exanakner[0]
+        obj.s = "Ձմեռ";
     }
     else {
         time = 0
     }
     console.log(time)
-    console.log(exanak)
+    console.log(obj.s)
     for (let i in grassArr) {
         if (exanak == exanakner[0]) {
             grassArr[i].mul(30);
@@ -171,9 +174,9 @@ function game() {
 }
 function refresh() {
     if (grassEaterArr.length <= 0) {
-        while (n < 20) {
-            let x = Math.floor(Math.random() * 100);
-            let y = Math.floor(Math.random() * 100);
+        while (n < 70) {
+            let x = Math.floor(Math.random() * 50);
+            let y = Math.floor(Math.random() * 50);
             if (matrix[y][x] == 0) {
                 matrix[y][x] = 2;
                 n++
@@ -184,9 +187,9 @@ function refresh() {
         n = 0
     }
     if (predatorArr.length <= 0) {
-        while (n < 20) {
-            let x = Math.floor(Math.random() * 100);
-            let y = Math.floor(Math.random() * 100);
+        while (n < 50) {
+            let x = Math.floor(Math.random() * 50);
+            let y = Math.floor(Math.random() * 50);
             if (matrix[y][x] == 0) {
                 matrix[y][x] = 3;
                 n++
@@ -197,9 +200,9 @@ function refresh() {
         n = 0
     }
     if (hunterArr.length <= 0) {
-        while (n < 50) {
-            let x = Math.floor(Math.random() * 100);
-            let y = Math.floor(Math.random() * 100);
+        while (n < 30) {
+            let x = Math.floor(Math.random() * 50);
+            let y = Math.floor(Math.random() * 50);
             if (matrix[y][x] == 0) {
                 matrix[y][x] = 4;
                 n++
@@ -210,9 +213,9 @@ function refresh() {
         n = 0
     }
     if (UFO_arr.length <= 0) {
-        while (n < 5) {
-            let x = Math.floor(Math.random() * 100);
-            let y = Math.floor(Math.random() * 100);
+        while (n < 1) {
+            let x = Math.floor(Math.random() * 50);
+            let y = Math.floor(Math.random() * 50);
             if (matrix[y][x] == 0) {
                 matrix[y][x] = 5;
                 n++
@@ -223,9 +226,9 @@ function refresh() {
         n = 0
     }
     if (grassArr.length <= 0) {
-        while (n < 1000) {
-            let x = Math.floor(Math.random() * 100);
-            let y = Math.floor(Math.random() * 100);
+        while (n < 100) {
+            let x = Math.floor(Math.random() * 50);
+            let y = Math.floor(Math.random() * 50);
             if (matrix[y][x] == 0) {
                 matrix[y][x] = 1;
                 n++
@@ -236,3 +239,23 @@ function refresh() {
         n = 0
     }
 }
+socket.on('neracru', function (arrays) {
+
+    let r = Math.floor(Math.random() * (6 - 2)) + 2;
+    switch (r) {
+        case 2:
+            arrays[3] = []
+            break;
+        case 3:
+            arrays[2] = []
+            break;
+        case 4:
+            arrays[1] = []
+            break;
+        case 5:
+            arrays[0] = []
+            break;
+        default:
+            break;
+    }
+})

@@ -48,8 +48,8 @@ module.exports = class UFO {
         return found;
     }
     move() {
-        let x = Math.floor(Math.random()*100)
-        let y = Math.floor(Math.random()*100)
+        let x = Math.floor(Math.random() * 50)
+        let y = Math.floor(Math.random() * 50)
         if (matrix[y][x] < 2) {
             matrix[this.y][this.x] = 0
             matrix[y][x] = 5
@@ -57,8 +57,8 @@ module.exports = class UFO {
             this.y = y
         }
     }
-    die(){
-        matrix[this.y][this.x]=0
+    die() {
+        matrix[this.y][this.x] = 0
         for (let i in UFO_arr) {
             if (this.x == UFO_arr[i].x && this.y == UFO_arr[i].y) {
                 UFO_arr.splice(i, 1);
@@ -68,7 +68,7 @@ module.exports = class UFO {
     eat() {
         this.move()
         this.energy--
-        if (this.energy<0) {
+        if (this.energy < 0) {
             this.die()
         }
         let fundCords = this.chooseCell(1, 4)
