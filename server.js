@@ -2,20 +2,18 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var fs = require('fs')
 app.use(express.static("."));
 app.get('/', function (req, res) {
     res.redirect('index.html');
 });
 server.listen(3000);
-console.log('server activatet');
+console.log('server activation');
 grassArr = [];
 grassEaterArr = [];
 predatorArr = [];
 hunterArr = [];
 UFO_arr = [];
-
-arrays = [UFO_arr, hunterArr, predatorArr, grassEaterArr]
-
 matrix = [];
 for (let a = 0; a < 50; a++) {
     matrix[a] = []
@@ -58,8 +56,6 @@ for (let i = 1; i < 6; i++) {
     n = 0;
 }
 exanakner = ["Ձմեռ", "Գարուն", "Ամառ", "Աշուն"];
-
-
 exanak = "Ձմեռ";
 var Grass = require('./classGrass');
 var GrassEater = require('./classGrassEater');
@@ -67,7 +63,6 @@ var Predator = require('./classPredator');
 var Hunter = require('./classHunter');
 var UFO = require('./classUFO');
 function start() {
-    console.log('connect')
     io.sockets.emit('matrix', matrix);
     for (let y = 0; y < matrix.length; y++) {
         for (let x = 0; x < matrix[y].length; x++) {
@@ -99,7 +94,8 @@ function start() {
     }
 }
 start()
-setInterval(game, 100)
+setInterval(game, 1000)
+statistika = {};
 time = 0
 obj = {
     'm': matrix,
@@ -122,58 +118,33 @@ function game() {
     else {
         time = 0
     }
-    console.log(time)
-    console.log(obj.s)
     for (let i in grassArr) {
-        if (exanak == exanakner[0]) {
-            grassArr[i].mul(30);
-        }
-        else if (exanak == exanakner[1] || exanak == exanakner[2] || exanak == exanakner[3]) {
-            grassArr[i].mul(10);
-        }
-
+        grassArr[i].mul();
     }
     for (let i in grassEaterArr) {
-        if (exanak == exanakner[1] || exanak == exanakner[3]) {
-            grassEaterArr[i].eat(10);
-        }
-        else if (exanak == exanakner[2]) {
-            grassEaterArr[i].eat(15);
-        }
-        else if (exanak == exanakner[0]) {
-            grassEaterArr[i].eat(20);
-        }
+        grassEaterArr[i].eat();
     }
     for (let i in predatorArr) {
-        if (exanak == exanakner[1] || exanak == exanakner[3]) {
-            predatorArr[i].eat(10);
-        }
-        else if (exanak == exanakner[2]) {
-            predatorArr[i].eat(10);
-        }
-        else if (exanak == exanakner[0]) {
-            predatorArr[i].eat(15);
-        }
+        predatorArr[i].eat();
     }
     for (let i in hunterArr) {
-        if (exanak == exanakner[1] || exanak == exanakner[3]) {
-            hunterArr[i].eat(15)
-        }
-        else if (exanak == exanakner[2]) {
-            hunterArr[i].eat(10)
-        }
-        else if (exanak == exanakner[0]) {
-            hunterArr[i].eat(30)
-        }
+        hunterArr[i].eat()
     }
     for (let i in UFO_arr) {
         UFO_arr[i].eat()
     }
     refresh()
     io.sockets.emit('obj', obj);
+
+    statistika.xot = grassArr.length;
+    statistika.xotaker = grassEaterArr.length;
+    statistika.gishatich = predatorArr.length;
+    statistika.vorsord = hunterArr.length;
+    statistika.ajlmolorakain = UFO_arr.length;
+    fs.writeFile("statistics.JSON", JSON.stringify(statistika))
 }
 function refresh() {
-    if (grassEaterArr.length <= 0) {
+    if (grassEaterArr.length == 0) {
         while (n < 70) {
             let x = Math.floor(Math.random() * 50);
             let y = Math.floor(Math.random() * 50);
@@ -186,7 +157,7 @@ function refresh() {
         }
         n = 0
     }
-    if (predatorArr.length <= 0) {
+    if (predatorArr.length == 0) {
         while (n < 50) {
             let x = Math.floor(Math.random() * 50);
             let y = Math.floor(Math.random() * 50);
@@ -199,7 +170,7 @@ function refresh() {
         }
         n = 0
     }
-    if (hunterArr.length <= 0) {
+    if (hunterArr.length == 0) {
         while (n < 30) {
             let x = Math.floor(Math.random() * 50);
             let y = Math.floor(Math.random() * 50);
@@ -212,7 +183,7 @@ function refresh() {
         }
         n = 0
     }
-    if (UFO_arr.length <= 0) {
+    if (UFO_arr.length == 0) {
         while (n < 1) {
             let x = Math.floor(Math.random() * 50);
             let y = Math.floor(Math.random() * 50);
@@ -225,7 +196,7 @@ function refresh() {
         }
         n = 0
     }
-    if (grassArr.length <= 0) {
+    if (grassArr.length == 0) {
         while (n < 100) {
             let x = Math.floor(Math.random() * 50);
             let y = Math.floor(Math.random() * 50);
@@ -239,23 +210,77 @@ function refresh() {
         n = 0
     }
 }
-socket.on('neracru', function (arrays) {
+io.on('connection', function (socket) {
+    console.log('connect')
+    socket.on('neracru', function () {
+        let r = Math.floor(Math.random() * (6 - 2)) + 2;
+        switch (r) {
+            case 2:
+                for (let i in grassEaterArr) {
+                    let x = grassEaterArr[i].x
+                    let y = grassEaterArr[i].y
+                    matrix[y][x] = 0
+                }
+                grassEaterArr = []
+                break;
+            case 3:
+                for (let i in predatorArr) {
+                    let x = predatorArr[i].x
+                    let y = predatorArr[i].y
+                    matrix[y][x] = 0
+                }
+                predatorArr = []
+                break;
+            case 4:
+                for (let i in hunterArr) {
+                    let x = hunterArr[i].x
+                    let y = hunterArr[i].y
+                    matrix[y][x] = 0
+                }
+                hunterArr = []
+                break;
+            default:
+                break;
+        }
+    })
+    socket.on('andzrev', function () {
+        for (let i = 0; i < Math.floor(Math.random() * (25 - 15)) + 15; i++) {
+            let x = Math.floor(Math.random() * 50)
+            let y = Math.floor(Math.random() * 50)
+            switch (matrix[y][x]) {
+                case 1:
+                    for (let i in grassArr) {
+                        if (x == grassArr[i].x && y == grassArr[i].y) {
+                            grassArr.splice(i, 1)
+                        }
+                    }
+                    break;
+                case 2:
+                    for (let i in grassEaterArr) {
+                        if (x == grassEaterArr[i].x && y == grassEaterArr[i].y) {
+                            grassEaterArr.splice(i, 1);
+                        }
+                    }
+                    break;
+                case 3:
+                    for (let i in predatorArr) {
+                        if (x == predatorArr[i].x && y == predatorArr[i].y) {
+                            predatorArr.splice(i, 1);
+                        }
+                    }
+                    break;
+                case 4:
+                    for (let i in hunterArr) {
+                        if (x == hunterArr[i].x && y == hunterArr[i].y) {
+                            hunterArr.splice(i, 1);
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+            matrix[y][x] = 0
 
-    let r = Math.floor(Math.random() * (6 - 2)) + 2;
-    switch (r) {
-        case 2:
-            arrays[3] = []
-            break;
-        case 3:
-            arrays[2] = []
-            break;
-        case 4:
-            arrays[1] = []
-            break;
-        case 5:
-            arrays[0] = []
-            break;
-        default:
-            break;
-    }
+        }
+    })
 })

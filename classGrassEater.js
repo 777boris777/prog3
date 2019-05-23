@@ -34,7 +34,7 @@ module.exports = class GrassEater extends LiveForm {
       }
     }
   }
-  eat(m) {
+  eat() {
     let fundCords = this.chooseCell(1);
     var cord = fundCords[Math.floor(Math.random()*fundCords.length)];
     if (cord) {
@@ -54,7 +54,7 @@ module.exports = class GrassEater extends LiveForm {
           grassArr.splice(i, 1);
         }
       }
-      if (this.multiply >= m) {
+      if (this.multiply >= 15) {
         this.mul();
         this.multiply = 0;
       }

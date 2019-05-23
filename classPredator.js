@@ -49,7 +49,7 @@ module.exports = class Predator extends LiveForm {
       }
     }
   }
-  eat(m) {
+  eat() {
     let fundCords = this.chooseCell(2);
     var cord = fundCords[Math.floor(Math.random()*fundCords.length)];
     if (cord) {
@@ -69,7 +69,7 @@ module.exports = class Predator extends LiveForm {
           grassEaterArr.splice(i, 1);
         }
       }
-      if (this.multiply >= m) {
+      if (this.multiply >= 8) {
         this.mul();
         this.multiply = 0;
       }

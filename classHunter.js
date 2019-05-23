@@ -49,7 +49,7 @@ module.exports = class Hunter extends LiveForm {
       }
     }
   }
-  eat(m) {
+  eat() {
     let cord;
     for (let k = 1; k <= 10; k++) {
       let fundCords1 = this.chooseCell(2, k);
@@ -83,7 +83,7 @@ module.exports = class Hunter extends LiveForm {
           }
         }
       }
-      if (this.multiply >= m) {
+      if (this.multiply >= 15) {
         this.mul();
         this.multiply = 0;
       }

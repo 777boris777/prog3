@@ -1,13 +1,13 @@
-let side = 10;
+let side = 20;
 let socket = io();
 function setup() {
+    noStroke();
     createCanvas(50 * side, 50 * side);
     background('#acacac');
 }
 function drawMatrix(obj) {
     matrix = obj.m
     exanak = obj.s
-    console.log(exanak)
     for (let y = 0; y < matrix.length; y++) {
         for (let x = 0; x < matrix[y].length; x++) {
             switch (matrix[y][x]) {
@@ -37,13 +37,16 @@ function drawMatrix(obj) {
                 default:
                     break;
             }
-            console.log('aaa')
             rect(x * side, y * side, side, side);
         }
     }
 }
 socket.on('obj', drawMatrix);
-console.log('ss')
 function rand() {
-    io.sockets.emit('neracru');
+    socket.emit('neracru');
+    console.log('button1');
+}
+function and() {
+    socket.emit('andzrev');
+    console.log('button2')
 }

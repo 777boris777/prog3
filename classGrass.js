@@ -3,9 +3,10 @@ module.exports = class Grass extends LiveForm {
   constructor(x, y) {
     super(x, y);
   }
-  mul(m) {
+  mul() {
+    
     this.multiply++;
-    if (this.multiply >= m) {
+    if (this.multiply >= 8) {
       let fundCords = this.chooseCell(0)
       var cord = fundCords[Math.floor(Math.random()*fundCords.length)];
       if (this.multiply >= 5 && cord) {
