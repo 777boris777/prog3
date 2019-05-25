@@ -19,7 +19,7 @@ function drawMatrix(obj) {
                     if (exanak == 'Ձմեռ') {
                         fill("floralwhite");
                     }
-                    else {
+                    else{
                         fill("green");
                     }
                     break;
@@ -36,7 +36,7 @@ function drawMatrix(obj) {
                     fill("navy");
                     break;
                 default:
-                    fill("black")
+                fill("black")
                     break;
             }
             rect(x * side, y * side, side, side);
@@ -47,9 +47,9 @@ socket.on('obj', drawMatrix);
 
 function rand() {
     socket.emit('neracru');
-
+  
 }
 function and() {
     socket.emit('andzrev');
-
+  
 }

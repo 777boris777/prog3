@@ -3,7 +3,7 @@ module.exports = class LiveForm {
     this.x = x;
     this.y = y;
     this.multiply = 0;
-    this.energy = 20;
+    this.energy = 10;
     this.directions = [];
   }
   newDirections() {
