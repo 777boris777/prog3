@@ -218,46 +218,55 @@ function refresh() {
 io.on('connection', function (socket) {
     console.log('connect')
     socket.on('neracru', function () {
-        let r = Math.floor(Math.random() * (5 - 2)) + 2;
-        switch (r) {
-            case 2:
-                for (let i in grassEaterArr) {
-                    let x = grassEaterArr[i].x
-                    let y = grassEaterArr[i].y
-                    matrix[y][x] = 0
+        let r = Math.floor(Math.random() * 25);
+        let g = Math.floor(Math.random() * (50 - 25)) + 25;
+        for (let y = r; y < g; y++) {
+            for (let x = r; x < g; x++) {
+                switch (matrix[y][x]) {
+                    case 1:
+                        for (let i in grassArr) {
+                            if (x == grassArr[i].x && y == grassArr[i].y) {
+                                grassArr.splice(i, 1)
+                            }
+                        }
+                        break;
+                    case 2:
+                        for (let i in grassEaterArr) {
+                            if (x == grassEaterArr[i].x && y == grassEaterArr[i].y) {
+                                grassEaterArr.splice(i, 1);
+                            }
+                        }
+                        break;
+                    case 3:
+                        for (let i in predatorArr) {
+                            if (x == predatorArr[i].x && y == predatorArr[i].y) {
+                                predatorArr.splice(i, 1);
+                            }
+                        }
+                        break;
+                    case 4:
+                        for (let i in hunterArr) {
+                            if (x == hunterArr[i].x && y == hunterArr[i].y) {
+                                hunterArr.splice(i, 1);
+                            }
+                        }
+                        break;
+                    case 5:
+                        for (let i in UFO_arr) {
+                            if (x == UFO_arr[i].x && y == UFO_arr[i].y) {
+                                UFO_arr.splice(i, 1);
+                            }
+                        }
+                        break;
+                    default:
+                        break;
                 }
-                grassEaterArr = []
-                break;
-            case 3:
-                for (let i in predatorArr) {
-                    let x = predatorArr[i].x
-                    let y = predatorArr[i].y
-                    matrix[y][x] = 0
-                }
-                predatorArr = []
-                break;
-            case 4:
-                for (let i in hunterArr) {
-                    let x = hunterArr[i].x
-                    let y = hunterArr[i].y
-                    matrix[y][x] = 0
-                }
-                hunterArr = []
-                break;
-            case 5:
-                for (let i in UFO_arr) {
-                    let x = UFO_arr[i].x
-                    let y = UFO_arr[i].y
-                    matrix[y][x] = 0
-                }
-                UFO_arr = []
-                break;
-            default:
-                break;
+                matrix[y][x] = 0
+            }
         }
     })
     socket.on('andzrev', function () {
-        let i = Math.floor(Math.random()*5)
+        let i = Math.floor(Math.random() * 5)
         let d;
         switch (i) {
             case 1:
@@ -278,7 +287,7 @@ io.on('connection', function (socket) {
             default:
                 break;
         }
-    
+
         while (n < d) {
             let x = Math.floor(Math.random() * 50);
             let y = Math.floor(Math.random() * 50);
@@ -286,7 +295,7 @@ io.on('connection', function (socket) {
                 matrix[y][x] = i;
                 n++;
             }
-    
+
         }
         n = 0;
         if (grassEaterArr.length == 0) {
@@ -390,7 +399,7 @@ io.on('connection', function (socket) {
                 default:
                     break;
             }
-            matrix[y][x] = 8
+            matrix[y][x] = 6
         }
     })
 })
