@@ -5,6 +5,7 @@ function setup() {
     createCanvas(50 * side, 50 * side);
     background('#acacac');
 }
+
 function drawMatrix(obj) {
     matrix = obj.m
     exanak = obj.s
@@ -35,6 +36,7 @@ function drawMatrix(obj) {
                     fill("navy");
                     break;
                 default:
+                fill("black")
                     break;
             }
             rect(x * side, y * side, side, side);
@@ -42,11 +44,12 @@ function drawMatrix(obj) {
     }
 }
 socket.on('obj', drawMatrix);
+
 function rand() {
     socket.emit('neracru');
-    console.log('button1');
+  
 }
 function and() {
     socket.emit('andzrev');
-    console.log('button2')
+  
 }
