@@ -142,7 +142,7 @@ function game() {
     statistika.vorsord = hunterArr.length;
     statistika.ajlmolorakain = UFO_arr.length;
     fs.writeFile("statistics.JSON", JSON.stringify(statistika), function () {
-
+        console.log('greci')
     })
 
 }
