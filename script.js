@@ -35,6 +35,7 @@ function drawMatrix(obj) {
                     fill("navy");
                     break;
                 default:
+                    fill('blue')
                     break;
             }
             rect(x * side, y * side, side, side);
